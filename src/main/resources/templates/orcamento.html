@@ -3,42 +3,65 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Orçamento</title>
+    <title>Orçamento de Venda - Elite Wheels</title>
     <link rel="stylesheet" href="/style.css">
 </head>
 <body>
-<div th:if="${successMessage}" class="container">
-    <div class="alert alert-success">
+<div class="container">
+    <div class="header">
+        <h1>Elite Wheels</h1>
+        <div class="menu-options">
+            <a href="#" class="menu-option active">Venda de veículo</a>
+            <a href="#" class="menu-option">Troca de veículo</a>
+            <a href="#" class="menu-option">Agendar revisão</a>
+        </div>
+    </div>
+
+    <h2>Orçamento de Venda</h2>
+
+    <div th:if="${successMessage}" class="alert alert-success">
         <p th:text="${successMessage}"></p>
     </div>
-</div>
 
-<div class="container">
-    <h2>Orçamento de Venda</h2>
-    <form th:action="@{/venda/preparar}" method="post">
+    <form th:action="@{/venda/preparar}" method="post" class="form-grid">
         
-        <label for="comprador-nome">Nome do Comprador:</label>
-        <input type="text" id="comprador-nome" name="nome" required><br>
-        
-        <label for="comprador-cpf">CPF do Comprador:</label>
-        <input type="text" id="comprador-cpf" name="cpf" required><br>
-        
-        <label for="comprador-nascimento">Data de Nascimento:</label>
-        <input type="date" id="comprador-nascimento" name="dataNascimento" required><br>
-        
-        <br>
-        
-        <label for="carro-codigo">Carro:</label>
-        <select id="carro-codigo" name="carroCodigo" required>
-            <option value="">Selecione o Carro</option>
-            <option th:each="carro : ${carros}" th:value="${carro.codigo}" th:text="${carro.modelo}"></option>
-        </select><br>
+        <div class="form-field">
+            <label for="comprador-nome">Nome do(a) Comprador(a):</label>
+            <input type="text" id="comprador-nome" name="nome" required>
+        </div>
 
-        <label for="valor-veiculo">Valor do Veículo (R$):</label>
-        <input type="number" id="valor-veiculo" name="valorVeiculo" step="0.01" required><br>
-        
-        <button type="submit">Avançar para Venda</button>
+        <div class="form-field">
+            <label for="carro-codigo">Carro:</label>
+            <select id="carro-codigo" name="carroCodigo" required>
+                <option value="">Selecione o Carro</option>
+                <option th:each="carro : ${carros}" th:value="${carro.codigo}" th:text="${carro.modelo}"></option>
+            </select>
+        </div>
+
+        <div class="form-field">
+            <label for="comprador-cpf">CPF do(a) Comprador(a):</label>
+            <input type="text" id="comprador-cpf" name="cpf" required>
+        </div>
+
+        <div class="form-field">
+            <label for="valor-veiculo">Valor do Veículo (R$):</label>
+            <input type="number" id="valor-veiculo" name="valorVeiculo" step="0.01" required>
+        </div>
+
+        <div class="form-field">
+            <label for="comprador-nascimento">Data de Nascimento:</label>
+            <input type="date" id="comprador-nascimento" name="dataNascimento" required>
+        </div>
+
+        <div class="form-field">
+            </div>
+
+        <div class="button-container">
+            <button type="submit" class="btn btn-primary">Avançar para Venda</button>
+        </div>
     </form>
 </div>
+
+<script src="/script.js"></script>
 </body>
 </html>
