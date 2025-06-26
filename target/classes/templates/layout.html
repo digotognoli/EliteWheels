@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${title} + ' - EliteWheels'">Layout Principal</title>
+    <link rel="stylesheet" th:href="@{/style.css}">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+
+<div class="page-container">
+    
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <h1>EliteWheels</h1>
+        </div>
+        <nav class="sidebar-nav">
+            <a th:href="@{/orcar}" class="nav-item" th:classappend="${#request.requestURI.startsWith('/orcar')} ? 'active'">Orçamento de venda</a>
+            <a href="#" class="nav-item">Venda de veículo</a>
+            <a href="#" class="nav-item">Troca de veículo</a>
+            <a href="#" class="nav-item">Agendar revisão</a>
+        </nav>
+    </aside>
+
+    <main class="main-content" th:fragment="content-wrapper">
+         <th:block th:replace="~{::content}"></th:block>
+    </main>
+
+</div>
+
+</body>
+</html>

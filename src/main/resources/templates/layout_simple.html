@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${title} + ' - EliteWheels'">Layout Simples</title>
+    <link rel="stylesheet" th:href="@{/style.css}">
+</head>
+<body class="simple-page-bg">
+
+    <div class="simple-container" th:fragment="container">
+        <th:block th:replace="~{::content}"></th:block>
+    </div>
+
+</body>
+</html>

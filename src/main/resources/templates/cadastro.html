@@ -1,25 +1,33 @@
 <!DOCTYPE html>
-<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastrar Vendedor</title>
-    <link rel="stylesheet" href="/style.css">
-    <script src="/script.js"></script>
-</head>
-<body>
-<div class="container">
-<h2>Cadastrar Vendedor</h2>
-<form th:action="@{/cadastrar}" method="post" onsubmit="return validarFormulario()">
-    <label for="nome-id">Nome:</label>
-    <input type="text" id="nome-id" name="nome" required><br>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org"
+      th:with="title='Cadastro de Vendedor'">
+
+<div th:replace="~{layout_simple :: container}">
+
+    <th:block th:fragment="content">
+      <div class="auth-box">
+          <h1 class="auth-title">EliteWheels</h1>
+          <h2>Cadastrar Vendedor</h2>
+
+          <form th:action="@{/cadastrar}" method="post" class="auth-form">
+              <div class="form-field">
+                  <label for="nome-id">Nome:</label>
+                  <input type="text" id="nome-id" name="nome" required>
+              </div>
+              
+              <div class="form-field">
+                  <label for="senha-id">Senha:</label>
+                  <input type="password" id="senha-id" name="senha" required>
+              </div>
+              
+              <button type="submit" class="btn-auth">Cadastrar</button>
+
+              <div class="auth-link">
+                <a th:href="@{/login}">Voltar para Login</a>
+              </div>
+          </form>
+      </div>
+    </th:block>
     
-    <label for="senha-id">Senha:</label>
-    <input type="password" id="senha-id" name="senha" required><br>
-    
-    <button type="submit">Cadastrar</button>
-</form>
-<a th:href="@{/}">Voltar para login</a>
 </div>
-</body>
 </html>

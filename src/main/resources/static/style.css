@@ -1,197 +1,247 @@
-/* === GERAL === */
+/* === GERAL E FONTES === */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
+
 body {
-    font-family: 'Segoe UI', Arial, sans-serif;
-    background-color: #f0f2f5; /* Fundo cinza claro */
+    font-family: 'Roboto', sans-serif;
     margin: 0;
-    padding: 20px;
+    color: #333;
+    background-color: #f4f7f9; /* Fundo padrão para páginas internas */
+}
+
+/* === LAYOUT PRINCIPAL (COM MENU) === */
+.page-container {
+    display: flex;
+    min-height: 100vh;
+}
+
+.sidebar {
+    width: 260px;
+    background-color: #343a40;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+}
+
+.sidebar-header {
+    padding: 25px 30px;
+    border-bottom: 1px solid #495057;
+}
+
+.sidebar-header h1 {
+    margin: 0;
+    font-size: 28px;
+    font-weight: 700;
+    color: #fff;
+}
+
+.sidebar-nav {
+    display: flex;
+    flex-direction: column;
+    padding: 20px 0;
+}
+
+.nav-item {
+    color: #ced4da;
+    text-decoration: none;
+    padding: 18px 30px;
+    font-size: 16px;
+    font-weight: 500;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.nav-item:hover {
+    background-color: #495057;
+}
+
+.nav-item.active {
+    background-color: #0d6efd;
+    color: #fff;
+    font-weight: 700;
+}
+
+.main-content {
+    flex-grow: 1;
+    padding: 30px 40px;
+    margin-left: 260px;
+}
+
+.content-header {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-bottom: 40px;
+}
+
+.seller-info {
+    text-align: right;
+    margin-right: 20px;
+}
+
+.seller-info span {
+    display: block;
+    font-size: 14px;
+    color: #6c757d;
+}
+
+.user-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 2px solid #dee2e6;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.user-icon .material-icons {
+    font-size: 28px;
+    color: #495057;
+}
+
+.form-container {
+    background-color: #fff;
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.form-title {
+    grid-column: 1 / -1;
+    margin: 0 0 20px 0;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #eee;
+    font-size: 20px;
     color: #333;
 }
 
-.container {
-    max-width: 900px;
-    margin: 20px auto;
-    background-color: #ffffff;
-    padding: 30px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    border-radius: 10px;
-}
-
-/* === CABEÇALHO E MENU === */
-.header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding-bottom: 20px;
-    border-bottom: 1px solid #dee2e6;
-    margin-bottom: 30px;
-}
-
-.header h1 {
-    font-size: 28px;
-    color: #007bff; /* Azul primário */
-    margin: 0;
-}
-
-.menu-options {
-    display: flex;
-    gap: 15px;
-}
-
-.menu-option {
-    padding: 10px 20px;
-    font-size: 14px;
-    font-weight: bold;
-    color: #495057;
-    background-color: #e9ecef;
-    border: 1px solid #ced4da;
-    border-radius: 5px;
-    text-decoration: none;
-    transition: all 0.3s ease;
-    white-space: nowrap;
-}
-
-.menu-option:hover,
-.menu-option.active {
-    background-color: #007bff;
-    color: #fff;
-    border-color: #007bff;
-}
-
-h2 {
-    font-size: 24px;
-    color: #495057;
-    margin-bottom: 25px;
-    text-align: left;
-}
-
-/* === FORMULÁRIO GRID === */
-.form-grid {
+.form-grid-v2 {
     display: grid;
-    grid-template-columns: 1fr 1fr; /* Duas colunas */
-    gap: 20px 30px; /* Espaçamento vertical e horizontal */
+    grid-template-columns: repeat(3, 1fr); 
+    gap: 25px 20px;
 }
 
-.form-grid label {
-    display: block;
-    font-weight: 600;
+.form-field {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-field.full-width {
+    grid-column: 1 / -1;
+}
+
+.form-field label {
+    font-size: 14px;
+    font-weight: 500;
     margin-bottom: 8px;
     color: #555;
 }
 
-.form-grid input,
-.form-grid select,
-.form-grid textarea {
+.form-field input,
+.form-field select {
     width: 100%;
     padding: 12px;
     box-sizing: border-box;
     border: 1px solid #ced4da;
     border-radius: 5px;
-    font-size: 16px;
-    transition: border-color 0.2s, box-shadow 0.2s;
+    font-size: 15px;
+    background-color: #e9ecef;
 }
 
-.form-grid input:focus,
-.form-grid select:focus,
-.form-grid textarea:focus {
-    border-color: #007bff;
-    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.2);
-    outline: none;
+.form-field .input-highlight {
+    background-color: #fff;
+    border: 1px solid #999;
 }
 
-.form-field.full-width {
-    grid-column: 1 / -1; /* Ocupa a largura total */
-}
-
-/* === SEÇÃO DE INFORMAÇÕES (Vendedor, Valores) === */
-.info-section {
-    grid-column: 1 / -1;
-    display: flex;
-    justify-content: space-between;
-    padding: 20px;
-    background-color: #f8f9fa;
-    border: 1px solid #e9ecef;
-    border-radius: 8px;
-    margin-top: 20px;
-}
-
-.info-block {
-    text-align: left;
-}
-
-.info-block p {
-    margin: 0 0 5px 0;
-    font-size: 14px;
-    color: #6c757d;
-}
-
-.info-block .value {
-    font-size: 22px;
-    font-weight: bold;
-    color: #343a40;
-}
-
-.info-block .value.total {
-    color: #28a745; /* Verde para o valor total */
-}
-
-/* === BOTÕES === */
 .button-container {
-    grid-column: 1 / -1;
-    text-align: right;
-    margin-top: 30px;
+    grid-column: 3 / 4;
+    justify-self: end;
+    align-self: end;
 }
 
-.btn {
-    padding: 12px 30px;
-    font-size: 16px;
-    font-weight: bold;
+.btn-pagamento {
+    background-color: #212529;
+    color: #fff;
     border: none;
-    border-radius: 5px;
+    border-radius: 50px;
+    padding: 12px 25px;
+    font-size: 16px;
+    font-weight: 500;
     cursor: pointer;
-    transition: background-color 0.3s;
-    text-decoration: none;
-    color: white;
+    display: flex;
+    align-items: center;
+    gap: 8px;
 }
 
-.btn-primary {
-    background-color: #e43737;
+.btn-pagamento:hover {
+    background-color: #495057;
 }
 
-.btn-primary:hover {
-    background-color: #0056b3;
+/* === LAYOUT SIMPLES (LOGIN/CADASTRO) === */
+.simple-page-bg {
+    background-color: #f0f2f5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
 }
 
-.btn-success {
-    background-color: #28a745; /* Verde */
+.simple-container {
+    width: 100%;
+    max-width: 400px;
 }
 
-.btn-success:hover {
-    background-color: #218838;
-}
-
-/* === RESUMO NA TELA DE VENDA === */
-.resumo-orcamento {
-    background-color: #f8f9fa;
-    border: 1px solid #e9ecef;
-    padding: 20px;
+.auth-box {
+    background-color: #fff;
+    padding: 40px;
     border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.auth-title {
+    font-size: 28px;
+    text-align: center;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.auth-box h2 {
+    font-size: 18px;
+    font-weight: 400;
+    color: #6c757d;
+    text-align: center;
     margin-bottom: 30px;
 }
 
-.resumo-orcamento p {
-    margin-bottom: 10px;
+.auth-form .form-field {
+    margin-bottom: 20px;
+}
+
+.btn-auth {
+    width: 100%;
+    padding: 12px;
     font-size: 16px;
-    line-height: 1.5;
-    color: #495057;
+    font-weight: 700;
+    color: #fff;
+    background-color: #0d6efd;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
 }
 
-.resumo-orcamento strong {
-    color: #343a40;
+.auth-link {
+    text-align: center;
+    margin-top: 20px;
 }
 
-hr {
-    border: 0;
-    height: 1px;
-    background: #dee2e6;
-    margin: 40px 0;
+.auth-link a {
+    color: #0d6efd;
+    text-decoration: none;
+    font-weight: 500;
 }

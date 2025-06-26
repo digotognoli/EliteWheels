@@ -1,44 +1,65 @@
 <!DOCTYPE html>
-<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Orçamento</title>
-    <link rel="stylesheet" href="/style.css">
-</head>
-<body>
-<div th:if="${successMessage}" class="container">
-    <div class="alert alert-success">
-        <p th:text="${successMessage}"></p>
-    </div>
-</div>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org"
+      th:with="title='Orçamento de Venda'">
 
-<div class="container">
-    <h2>Orçamento de Venda</h2>
-    <form th:action="@{/venda/preparar}" method="post">
-        
-        <label for="comprador-nome">Nome do Comprador:</label>
-        <input type="text" id="comprador-nome" name="nome" required><br>
-        
-        <label for="comprador-cpf">CPF do Comprador:</label>
-        <input type="text" id="comprador-cpf" name="cpf" required><br>
-        
-        <label for="comprador-nascimento">Data de Nascimento:</label>
-        <input type="date" id="comprador-nascimento" name="dataNascimento" required><br>
-        
-        <br>
-        
-        <label for="carro-codigo">Carro:</label>
-        <select id="carro-codigo" name="carroCodigo" required>
-            <option value="">Selecione o Carro</option>
-            <option th:each="carro : ${carros}" th:value="${carro.codigo}" th:text="${carro.modelo}"></option>
-        </select><br>
+<main th:replace="~{layout :: content-wrapper}">
 
-        <label for="valor-veiculo">Valor do Veículo (R$):</label>
-        <input type="number" id="valor-veiculo" name="valorVeiculo" step="0.01" required><br>
-        
-        <button type="submit">Avançar para Venda</button>
-    </form>
-</div>
-</body>
+    <th:block th:fragment="content">
+      
+      <header class="content-header">
+          <div class="seller-info">
+              <span>Vendedor: <strong th:text="${#authentication.name}">Nome Vendedor</strong></span>
+              <span class="seller-id"></span>
+          </div>
+          <div class="user-icon">
+              <span class="material-icons">person</span>
+          </div>
+      </header>
+
+      <div th:if="${successMessage}" class="alert alert-success" th:text="${successMessage}"></div>
+
+      <div class="form-container">
+          <form th:action="@{/venda/preparar}" method="post" class="form-grid-v2">
+
+              <div class="form-field full-width">
+                  <h2 class="form-title">Dados do Orçamento</h2>
+              </div>
+
+              <div class="form-field">
+                  <label for="comprador-nome">Nome do(a) comprador(a)</label>
+                  <input type="text" id="comprador-nome" name="nome" required class="input-highlight">
+              </div>
+              <div class="form-field">
+                  <label for="comprador-cpf">CPF do(a) comprador(a)</label>
+                  <input type="text" id="comprador-cpf" name="cpf" required>
+              </div>
+              <div class="form-field">
+                  <label for="comprador-nascimento">Data de nascimento</label>
+                  <input type="date" id="comprador-nascimento" name="dataNascimento" required>
+              </div>
+
+              <div class="form-field">
+                  <label for="carro-codigo">Carro</label>
+                  <select id="carro-codigo" name="carroCodigo" required>
+                      <option value="">Selecione o Carro</option>
+                      <option th:each="carro : ${carros}" th:value="${carro.codigo}" th:text="${carro.modelo}"></option>
+                  </select>
+              </div>
+              <div class="form-field">
+                  <label for="valor-veiculo">Valor do Veículo (R$)</label>
+                  <input type="number" id="valor-veiculo" name="valorVeiculo" step="0.01" required>
+              </div>
+              <div class="form-field">
+                  </div>
+
+              <div class="button-container">
+                  <button type="submit" class="btn-pagamento">
+                      Pagamento <span class="material-icons">arrow_forward</span>
+                  </button>
+              </div>
+          </form>
+      </div>
+    </th:block>
+
+</main>
 </html>

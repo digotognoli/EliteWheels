@@ -11,12 +11,14 @@ import com.elitewheels.repositories.VendedorRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.security.Principal;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -30,38 +32,53 @@ public class VendaController {
     @Autowired
     private CarroRepository carroRepo;
     @Autowired
-    private VendaRepository vendaRepo;
+    private VendaRepository vendaRepo; // Será usado no método finalizarVenda
     @Autowired
-    private CompradorRepository compradorRepo;
+    private CompradorRepository compradorRepo; // Será usado no método prepararVenda
 
-    // ... (métodos de login, cadastro e orcar permanecem iguais) ...
+    // Redireciona a raiz (/) para o login ou para a página principal
     @GetMapping("/")
-    public String login() {
+    public String handleRoot(Principal principal) {
+        if (principal != null) {
+            return "redirect:/orcar";
+        }
+        return "redirect:/login";
+    }
+
+    // Mapeia a página de login
+    @GetMapping("/login")
+    public String loginPage() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication != null && authentication.isAuthenticated() && !"anonymousUser".equals(authentication.getPrincipal())) {
+            return "redirect:/orcar";
+        }
         return "login";
     }
 
+    // Mapeia o formulário de cadastro
     @GetMapping("/cadastro")
     public String cadastroForm() {
         return "cadastro";
     }
 
+    // Processa o cadastro de um novo vendedor
     @PostMapping("/cadastrar")
     public String cadastrar(@RequestParam String nome, @RequestParam String senha) {
         Vendedor novoVendedor = new Vendedor();
         novoVendedor.setNome(nome);
-        String senhaCodificada = passwordEncoder.encode(senha);
-        novoVendedor.setSenha(senhaCodificada);
+        novoVendedor.setSenha(passwordEncoder.encode(senha));
         vendedorRepo.save(novoVendedor);
-        return "redirect:/";
+        return "redirect:/login";
     }
 
+    // Mapeia a página de orçamento
     @GetMapping("/orcar")
     public String orcar(Model model) {
         model.addAttribute("carros", carroRepo.findAll());
         return "orcamento";
     }
 
-    // MÉTODO ATUALIZADO: Prepara a venda de forma explícita
+    // Prepara os dados para a tela final de venda
     @PostMapping("/venda/preparar")
     @Transactional
     public String prepararVenda(
@@ -72,21 +89,18 @@ public class VendaController {
             @RequestParam double valorVeiculo,
             Model model) {
 
-        // 1. Cria um novo objeto Comprador manualmente
+        // O 'compradorRepo' é usado aqui, o que remove o primeiro aviso.
         Comprador novoComprador = new Comprador();
         novoComprador.setNome(compradorNome);
         novoComprador.setCpf(compradorCpf);
         novoComprador.setDataNascimento(compradorDataNascimento);
-        // 2. Salva o comprador para garantir que ele tenha um ID
         Comprador compradorSalvo = compradorRepo.save(novoComprador);
 
-        // 3. Busca o carro selecionado
         Carro carroSelecionado = carroRepo.findById(carroCodigo)
-                .orElseThrow(() -> new IllegalArgumentException("Código do carro inválido:" + carroCodigo));
+                .orElseThrow(() -> new IllegalArgumentException("Código do carro inválido: " + carroCodigo));
 
-        // 4. Monta o objeto de Venda com os dados corretos
         Venda venda = new Venda();
-        venda.setComprador(compradorSalvo); // Usa o comprador que acabamos de criar e salvar
+        venda.setComprador(compradorSalvo);
         venda.setCarro(carroSelecionado);
         venda.setValorFinal(valorVeiculo);
         venda.setDataHora(LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss")));
@@ -96,8 +110,9 @@ public class VendaController {
         return "venda";
     }
 
-    // O método finalizar agora receberá o ID do comprador salvo e funcionará corretamente
+    // Finaliza a venda e salva no banco de dados
     @PostMapping("/venda/finalizar")
+    @Transactional
     public String finalizarVenda(@ModelAttribute Venda venda, Authentication authentication, RedirectAttributes redirectAttributes) {
         String nomeVendedor = authentication.getName();
         Vendedor vendedorLogado = vendedorRepo.findByNome(nomeVendedor)
@@ -106,6 +121,7 @@ public class VendaController {
         venda.setVendedor(vendedorLogado);
         venda.setDataHora(LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss")));
 
+        // O 'vendaRepo' é usado aqui, o que remove o segundo aviso.
         vendaRepo.save(venda);
         
         redirectAttributes.addFlashAttribute("successMessage", "Venda efetuada com sucesso!");
