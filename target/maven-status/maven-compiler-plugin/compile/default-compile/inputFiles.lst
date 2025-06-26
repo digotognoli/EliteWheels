@@ -1,0 +1,12 @@
+/home/beny/Documentos/APSOO/EliteWheels/src/main/java/com/elitewheels/EliteWheelsApplication.java
+/home/beny/Documentos/APSOO/EliteWheels/src/main/java/com/elitewheels/config/SecurityConfig.java
+/home/beny/Documentos/APSOO/EliteWheels/src/main/java/com/elitewheels/config/VendedorDetailsService.java
+/home/beny/Documentos/APSOO/EliteWheels/src/main/java/com/elitewheels/controllers/VendaController.java
+/home/beny/Documentos/APSOO/EliteWheels/src/main/java/com/elitewheels/entities/Carro.java
+/home/beny/Documentos/APSOO/EliteWheels/src/main/java/com/elitewheels/entities/Comprador.java
+/home/beny/Documentos/APSOO/EliteWheels/src/main/java/com/elitewheels/entities/Venda.java
+/home/beny/Documentos/APSOO/EliteWheels/src/main/java/com/elitewheels/entities/Vendedor.java
+/home/beny/Documentos/APSOO/EliteWheels/src/main/java/com/elitewheels/repositories/CarroRepository.java
+/home/beny/Documentos/APSOO/EliteWheels/src/main/java/com/elitewheels/repositories/CompradorRepository.java
+/home/beny/Documentos/APSOO/EliteWheels/src/main/java/com/elitewheels/repositories/VendaRepository.java
+/home/beny/Documentos/APSOO/EliteWheels/src/main/java/com/elitewheels/repositories/VendedorRepository.java

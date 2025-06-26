@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<div class="container">
+<h2>Login Vendedor</h2>
+<form th:action="@{/login}" method="post">
+    <label for="username-id">Nome:</label>
+    <input type="text" id="username-id" name="username" required><br>
+    
+    <label for="password-id">Senha:</label>
+    <input type="password" id="password-id" name="password" required><br>
+    
+    <button type="submit">Entrar</button>
+</form>
+<a th:href="@{/cadastro}">Criar nova conta</a>
+</div>
+</body>
+</html>
