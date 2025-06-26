@@ -1,0 +1,12 @@
+com\elitewheels\entities\Comprador.class
+com\elitewheels\repositories\CarroRepository.class
+com\elitewheels\repositories\VendaRepository.class
+com\elitewheels\repositories\VendedorRepository.class
+com\elitewheels\config\SecurityConfig.class
+com\elitewheels\config\VendedorDetailsService.class
+com\elitewheels\controllers\VendaController.class
+com\elitewheels\EliteWheelsApplication.class
+com\elitewheels\repositories\CompradorRepository.class
+com\elitewheels\entities\Carro.class
+com\elitewheels\entities\Venda.class
+com\elitewheels\entities\Vendedor.class

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Orçamento</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<div class="container">
+    <h2>Orçamento de Venda</h2>
+    <form th:action="@{/venda}" method="post">
+        <label for="comprador-nome">Comprador:</label>
+        <input type="text" id="comprador-nome" name="comprador.nome"><br>
+        
+        <label for="comprador-cpf">CPF:</label>
+        <input type="text" id="comprador-cpf" name="comprador.cpf"><br>
+        
+        <label for="comprador-nascimento">Data Nascimento:</label>
+        <input type="text" id="comprador-nascimento" name="comprador.dataNascimento"><br>
+        
+        <br>
+        
+        <label for="carro-codigo">Carro:</label>
+        <select id="carro-codigo" name="carro.codigo">
+            <option th:each="carro : ${carros}" th:value="${carro.codigo}" th:text="${carro.modelo}">Carro</option>
+        </select><br>
+        
+        <label for="desconto-id">Desconto:</label>
+        <input type="text" id="desconto-id" name="desconto"><br>
+        
+        <label for="pagamento-id">Forma Pagamento:</label>
+        <input type="text" id="pagamento-id" name="formaPagamento"><br>
+        
+        <label for="obs-id">Observações:</label>
+        <input type="text" id="obs-id" name="observacoes"><br>
+        
+        <button type="submit">Finalizar Venda</button>
+    </form>
+</div>
+</body>
+</html>
