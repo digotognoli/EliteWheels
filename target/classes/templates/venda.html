@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Finalizar Venda</title>
+    <link rel="stylesheet" href="/style.css">
+    <script src="/script.js" defer></script>
+</head>
+<body>
+<div class="container">
+    <h2>Finalizar Venda</h2>
+
+    <div class="resumo-orcamento">
+        <h4>Resumo do Orçamento</h4>
+        <p><strong>Comprador:</strong> <span th:text="${venda.comprador.nome}"></span></p>
+        <p><strong>Carro:</strong> <span th:text="${venda.carro.modelo}"></span></p>
+        <p><strong>Data da Venda:</strong> <span th:text="${venda.dataHora}"></span></p>
+        <p><strong>Valor Negociado:</strong> R$ <span id="valorBase" th:text="${#numbers.formatDecimal(venda.valorFinal, 1, 'POINT', 2, 'COMMA')}"></span></p>
+    </div>
+
+    <hr>
+
+    <form th:action="@{/venda/finalizar}" th:object="${venda}" method="post">
+        
+        <input type="hidden" th:field="*{comprador.id}" />
+        <input type="hidden" th:field="*{carro.codigo}" />
+        <input type="hidden" id="valorFinalInput" th:field="*{valorFinal}" />
+        <input type="hidden" th:field="*{dataHora}" />
+
+        <label for="formaPagamento">Forma de Pagamento:</label>
+        <select id="formaPagamento" th:field="*{formaPagamento}" required>
+            <option value="">Selecione...</option>
+            <option value="Débito">Débito</option>
+            <option value="Crédito">Crédito</option>
+            <option value="PIX">PIX</option>
+            <option value="Boleto">Boleto</option>
+        </select><br>
+
+        <label for="desconto">Desconto (R$):</label>
+        <input type="number" id="desconto" th:field="*{desconto}" oninput="calcularValorFinal()" step="0.01" value="0"><br>
+
+        <div class="valor-final">
+            <strong>Valor Total: R$ <span id="valorFinalDisplay"></span></strong>
+        </div>
+
+        <label for="observacoes">Observações:</label>
+        <textarea id="observacoes" th:field="*{observacoes}" rows="3"></textarea><br>
+
+        <button type="submit" class="finalizar-venda-btn">Finalizar Venda</button>
+    </form>
+</div>
+</body>
+</html>

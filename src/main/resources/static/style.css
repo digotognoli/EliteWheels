@@ -41,3 +41,18 @@ form button {
 form button:hover {
     background-color: #0056b3;
 }
+/* ESTILOS PARA A MENSAGEM DE SUCESSO */
+.alert {
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.alert-success {
+    color: #155724;
+    background-color: #d4edda;
+    border-color: #c3e6cb;
+}
